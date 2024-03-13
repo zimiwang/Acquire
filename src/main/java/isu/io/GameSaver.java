@@ -1,25 +1,36 @@
 package isu.io;
 
-import java.io.FileInputStream;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 public class GameSaver {
-    /* public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-    String a1 = "test";
-    String a2;
+    public void save(){
+        GameSave save = new GameSave();
+        save.setSaveID(SaveManager.getInstance().getNumSaves());
+        //save.setGameEngine(???);
 
-    // Write data to file using ObjextOutputStream
-    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(""));
-    //out.writeObject(a1);
+        SaveManager.getInstance().addSave(save);
 
-    // Get data from the file
-    ObjectInputStream in = new ObjectInputStream(new FileInputStream(""));
-    //a2 = a1.readObject();
+        write(save);
+    }
 
-    }*/
+    public void write(GameSave save){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            //convert save to string
+            String json = mapper.writeValueAsString(save);
+
+            //print save to file
+            PrintWriter out = new PrintWriter("save" + save.getSaveID() +".json", "UTF-8");
+            out.println(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
