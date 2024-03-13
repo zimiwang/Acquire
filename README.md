@@ -1,4 +1,5 @@
-# Acquire project
+# Acquire Board Game Project
+
 ## Build Instructions
 
   1. Clone the repository
